@@ -1,7 +1,7 @@
 package com.exp.liveness.bean;
 
 import com.exp.liveness.envm.RemoteServiceProtocol;
-import com.exp.liveness.envm.SuccessStatus;
+import com.exp.liveness.envm.LivenessStatus;
 
 // Nested properties need not be annotated
 // @ConfigurationProperties(prefix =
@@ -23,7 +23,7 @@ public class RemoteService {
         this.name = "";
         this.protocol = RemoteServiceProtocol.UNKNOW;
         this.address = "";
-        this.statusCode = SuccessStatus.UNKNOW;
+        this.statusCode = LivenessStatus.UNKNOW;
         this.statusDesc = "";
     }
 

@@ -4,7 +4,7 @@ import com.exp.liveness.bean.RemoteService;
 import com.exp.liveness.bean.Result;
 import com.exp.liveness.config.RemoteServiceConfig;
 import com.exp.liveness.envm.RemoteServiceProtocol;
-import com.exp.liveness.envm.SuccessStatus;
+import com.exp.liveness.envm.LivenessStatus;
 import com.exp.liveness.service.HealthService;
 import com.exp.liveness.utils.HttpUtils;
 import com.exp.liveness.utils.ResultUtils;
@@ -40,8 +40,8 @@ public class HealthServiceImpl implements HealthService {
 
                 default:
                     remoteService.
-                            setStatusCode(SuccessStatus.UNKNOW).
-                            setStatusDesc("Unsupport");
+                            setStatusCode(LivenessStatus.UNKNOW).
+                            setStatusDesc("Unsupport Protocol");
                     break;
             }
 
