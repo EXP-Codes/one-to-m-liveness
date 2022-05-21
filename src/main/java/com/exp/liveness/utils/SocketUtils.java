@@ -7,8 +7,6 @@ import java.net.Socket;
 
 public class SocketUtils {
 
-    private final static int SOCKET_TIMEOUT = 10;
-
     private SocketUtils() {}
 
     public static boolean testLiveness(RemoteService remoteService) {
