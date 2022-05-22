@@ -89,7 +89,7 @@ public class GenUnitTestData {
      * @param max 随机数限界最大值
      * @return 返回随机数范围 [min,max]
      */
-    private static int genInt(final int min, final int max) {
+    public static int genInt(final int min, final int max) {
         int num = genInt(max - min + 1);
         return num + min;
     }

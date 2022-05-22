@@ -26,11 +26,11 @@ public class SocketUtils {
             int port = Integer.parseInt(args[1]);
 
             try (Socket socket = new Socket(ip, port)) {
-                remoteService.setStatusCode(LivenessStatus.OK_SOCKET);
                 socket.close();
+                remoteService.setStatusCode(LivenessStatus.OK_SOCKET);
 
-            } catch (Exception e) {
-                throw e;
+            } catch (Exception ex) {
+                throw ex;
             }
         } catch (Exception e) {
             remoteService.setStatusCode(LivenessStatus.UNKNOW);
