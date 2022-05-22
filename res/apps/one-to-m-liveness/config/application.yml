@@ -1,5 +1,5 @@
 spring.profiles.active: product
-logging.config: classpath:log4j2.xml
+logging.config: classpath:logback.xml
 server:
   port: 8080
   servlet.context-path: /

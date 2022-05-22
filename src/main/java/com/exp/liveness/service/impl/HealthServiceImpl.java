@@ -9,12 +9,14 @@ import com.exp.liveness.service.HealthService;
 import com.exp.liveness.utils.HttpUtils;
 import com.exp.liveness.utils.ResultUtils;
 import com.exp.liveness.utils.SocketUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class HealthServiceImpl implements HealthService {
 
@@ -28,6 +30,7 @@ public class HealthServiceImpl implements HealthService {
 
         List<RemoteService> remoteServices = remoteServiceConfig.getRemoteServices();
         for (RemoteService remoteService : remoteServices) {
+            log.info("正在测试： {}", remoteService.toSimpleInfo());
             boolean isOK = true;
             switch (remoteService.getProtocol()) {
                 case RemoteServiceProtocol.HTTP :
@@ -47,8 +50,10 @@ public class HealthServiceImpl implements HealthService {
 
             if (isOK) {
                 successRemoteServices.add(remoteService);
+                log.info("服务正常： {}", remoteService.toSimpleInfo());
             } else {
                 errorRemoteServices.add(remoteService);
+                log.warn("服务异常： {}", remoteService.toSimpleInfo());
             }
         }
         return ResultUtils.handle(errorRemoteServices, successRemoteServices);

@@ -41,49 +41,35 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<!-- 排除 logback -->
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<!-- 排除 logback -->
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
+		<!-- @Slf4j 注解支持 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 
+		<!-- 自动装配支持 -->
 		<dependency>
 			<groupId> org.springframework.boot </groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
 
+		<!-- Jackson 支持（响应自动转换为 json 格式） -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-json</artifactId>
 		</dependency>
 
+		<!-- HttpCilent 支持 -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.5.13</version>
 		</dependency>
 
+		<!-- 单元测试 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -167,7 +153,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- docker package -->
+			<!-- docker package: 流水线打包镜像插件 -->
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>

@@ -2,11 +2,12 @@ package com.exp.liveness.bean;
 
 import com.exp.liveness.envm.RemoteServiceProtocol;
 import com.exp.liveness.envm.LivenessStatus;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
-// Nested properties need not be annotated
-// @ConfigurationProperties(prefix =
-// "available-payment-channels-list.channelConfigurations")
-// @Configuration
+//嵌套的对象属性不需要注解
+//@Configuration
+//@ConfigurationProperties(prefix = "detected-list.remoteServices")
 public class RemoteService {
 
     private String name;
@@ -33,6 +34,14 @@ public class RemoteService {
         this.address = address;
         this.statusCode = statusCode;
         this.statusDesc = statusDesc;
+    }
+
+    public String toSimpleInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(name).append("]");
+        sb.append("[").append(protocol).append("]");
+        sb.append("[").append(address).append("]");
+        return sb.toString();
     }
 
     public String getName() {
@@ -79,4 +88,5 @@ public class RemoteService {
         this.statusDesc = statusDesc;
         return this;
     }
+
 }
