@@ -14,6 +14,9 @@ import org.apache.http.impl.client.HttpClients;
  */
 public class HttpUtils {
 
+    /** 测试用的 HttpClient */
+    private static CloseableHttpClient mockHttpClient;
+
     private HttpUtils() {}
 
     /**
@@ -24,7 +27,7 @@ public class HttpUtils {
     public static boolean testLiveness(RemoteService remoteService) {
         HttpGet httpGet = new HttpGet(remoteService.getAddress());
 
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+        try (CloseableHttpClient httpClient = getHttpClient()) {
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             remoteService.setStatusCode(statusCode);
@@ -43,6 +46,22 @@ public class HttpUtils {
      */
     private static boolean isLiveness(int statusCode) {
         return statusCode >= LivenessStatus.OK_HTTP_MIN && statusCode <= LivenessStatus.OK_HTTP_MAX;
+    }
+
+    /**
+     * 仅用于单元测试 （此方法限制只能通过反射调用，避免误用）
+     * @param mockHttpClient 测试用的 HttpClient
+     */
+    private static void setMockHttpClient(CloseableHttpClient mockHttpClient) {
+        HttpUtils.mockHttpClient = mockHttpClient;
+    }
+
+    /**
+     * 当单元测试用的 HttpClient 不为空时，使用它替换正常的 HttpClient 以模拟测试
+     * @return
+     */
+    private static CloseableHttpClient getHttpClient() {
+        return HttpUtils.mockHttpClient == null ? HttpClients.createDefault() : HttpUtils.mockHttpClient;
     }
 
 }
