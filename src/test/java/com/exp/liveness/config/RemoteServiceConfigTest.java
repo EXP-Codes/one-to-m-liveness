@@ -1,24 +1,27 @@
-package com.exp.liveness;
+package com.exp.liveness.config;
 
-import com.exp.liveness.config.RemoteServiceConfig;
+import com.exp.liveness.Tester;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 @ComponentScan
 @EnableConfigurationProperties
-public class Tester {
+class RemoteServiceConfigTest {
+
     public static void main(String[] args) {
         ApplicationContext context = new SpringApplicationBuilder(Tester.class).run(args);
-        RemoteServiceConfig rsc = context.getBean(RemoteServiceConfig.class);
-        rsc.getRemoteServices().forEach(remoteService ->
+        RemoteServiceConfig rsConfig = context.getBean(RemoteServiceConfig.class);
+        rsConfig.getRemoteServices().forEach(remoteService ->
                 System.out.println(
                         remoteService.getName() + "\t" +
                         remoteService.getProtocol() + "\t" +
                         remoteService.getAddress())
         );
     }
+
 }
