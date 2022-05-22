@@ -7,6 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 远端服务配置
+ * @author exp
+ * @date 2022-05-22
+ */
 @Configuration
 @ConfigurationProperties(prefix = "detected-list", ignoreInvalidFields = true)
 public class RemoteServiceConfig {

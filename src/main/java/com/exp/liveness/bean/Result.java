@@ -1,5 +1,10 @@
 package com.exp.liveness.bean;
 
+/**
+ * HTTP 通用返回结果
+ * @author exp
+ * @date 2022-05-22
+ */
 public class Result<T> {
 
     private boolean isOK;

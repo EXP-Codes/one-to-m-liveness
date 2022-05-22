@@ -16,13 +16,25 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 一对多探活接口实现
+ * @author exp
+ * @date 2022-05-22
+ */
 @Slf4j
 @Service
 public class HealthServiceImpl implements HealthService {
 
+    /**
+     * 远端服务配置
+     */
     @Autowired
     private RemoteServiceConfig remoteServiceConfig;
 
+    /**
+     * 对所有远端服务执行探活
+     * @return 远端服务探活结果集
+     */
     @Override
     public Result<List<RemoteService>> liveness() {
         List<RemoteService> errorRemoteServices = new LinkedList<>();
@@ -30,7 +42,7 @@ public class HealthServiceImpl implements HealthService {
 
         List<RemoteService> remoteServices = remoteServiceConfig.getRemoteServices();
         for (RemoteService remoteService : remoteServices) {
-            log.info("正在测试： {}", remoteService.toSimpleInfo());
+            log.info("Detecting Service: {}", remoteService.toSimpleInfo());
             boolean isOK = true;
             switch (remoteService.getProtocol()) {
                 case RemoteServiceProtocol.HTTP :
@@ -50,10 +62,10 @@ public class HealthServiceImpl implements HealthService {
 
             if (isOK) {
                 successRemoteServices.add(remoteService);
-                log.info("服务正常： {}", remoteService.toSimpleInfo());
+                log.info("Detected OK: {}", remoteService.toSimpleInfo());
             } else {
                 errorRemoteServices.add(remoteService);
-                log.warn("服务异常： {}", remoteService.toSimpleInfo());
+                log.warn("Detected ERROR: {}", remoteService.toSimpleInfo());
             }
         }
         return ResultUtils.handle(errorRemoteServices, successRemoteServices);

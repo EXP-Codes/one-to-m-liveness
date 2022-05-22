@@ -1,5 +1,10 @@
 package com.exp.liveness.envm;
 
+/**
+ * 远端服务协议
+ * @author exp
+ * @date 2022-05-22
+ */
 public class RemoteServiceProtocol {
 
     private RemoteServiceProtocol() {}

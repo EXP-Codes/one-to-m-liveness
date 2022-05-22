@@ -1,23 +1,34 @@
 package com.exp.liveness.bean;
 
-import com.exp.liveness.envm.RemoteServiceProtocol;
 import com.exp.liveness.envm.LivenessStatus;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import com.exp.liveness.envm.RemoteServiceProtocol;
 
 //嵌套的对象属性不需要注解
 //@Configuration
 //@ConfigurationProperties(prefix = "detected-list.remoteServices")
 public class RemoteService {
 
+    /** 远端服务名 */
     private String name;
 
+    /**
+     * 远端服务协议，目前只支持：
+     *  http
+     *  socket
+     */
     private String protocol;
 
+    /**
+     * 远端服务的探活地址：
+     *  http = url
+     *  socket = ip:port
+     */
     private String address;
 
+    /** 远端服务返回的状态码 */
     private int statusCode;
 
+    /** 远端服务的状态描述 */
     private String statusDesc;
 
     public RemoteService() {
