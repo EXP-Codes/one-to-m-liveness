@@ -12,24 +12,60 @@
 
 	<groupId>com.exp</groupId>
 	<artifactId>one-to-m-liveness</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>one-to-m-liveness</name>
-	<description>one-to-many liveness</description>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>one-to-many-liveness</name>
+	<description>一对多探活器（one-to-many liveness）</description>
+	<url>https://github.com/lyy289065406/one-to-m-liveness</url>
 
+	<scm>
+		<connection>scm:git:https://github.com/lyy289065406/one-to-m-liveness.git</connection>
+		<developerConnection>scm:git:https://github.com/lyy289065406/one-to-m-liveness.git</developerConnection>
+		<url>https://github.com/lyy289065406/one-to-m-liveness</url>
+		<tag>HEAD</tag>
+	</scm>
+	
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring.boot.version>${project.parent.version}</spring.boot.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+
+		<maven.test.skip>false</maven.test.skip>
+		<maven.install.skip>true</maven.install.skip>
+		<maven.deploy.skip>true</maven.deploy.skip>
+
+		<registry.namespace>expm02</registry.namespace>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<!-- 排除 logback -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!-- 排除 logback -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
 		<dependency>
@@ -55,11 +91,108 @@
 		</dependency>
 	</dependencies>
 
+
+	<!-- build 属性: 构建 docker 时的环境开关 -->
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<docker.image.skip>true</docker.image.skip>    <!-- 本地调试时可改为 false -->
+				<springboot.skip>false</springboot.skip>
+				<assembly.skip>true</assembly.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>docker</id>
+			<properties>
+				<docker.image.skip>false</docker.image.skip>
+				<springboot.skip>false</springboot.skip>
+				<assembly.skip>true</assembly.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux</id>
+			<properties>
+				<docker.image.skip>true</docker.image.skip>
+				<springboot.skip>true</springboot.skip>
+				<assembly.skip>false</assembly.skip>
+			</properties>
+		</profile>
+	</profiles>
+
+
 	<build>
+		<!-- 最终打包的名字 -->
+		<finalName>${project.artifactId}</finalName>
+
 		<plugins>
+			<!-- springboot package: 影响 MANIFEST.MF 信息 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 编译 maven 工程 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
+				<configuration>
+					<skip>${maven.test.skip}</skip>
+					<target>${java.version}</target>
+					<source>${java.version}</source>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- 单元测试配置 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>${maven.test.skip}</skip>
+					<skipTests>${maven.test.skip}</skipTests>
+					<testFailureIgnore>false</testFailureIgnore>
+				</configuration>
+			</plugin>
+
+			<!-- docker package -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<configuration>
+					<!-- 打包后的镜像命名: docker命名空间/应用名称:tag -->
+					<repository>${registry.namespace}/${project.artifactId}</repository>
+					<tag>${docker.image.tag}</tag>    <!-- 由流水线的 mvn 命令行传入 -Ddocker.image.tag=$CI_PIPELINE_ID -->
+					<buildArgs>
+						<IMAGE_NAMESPACE>${registry.namespace}</IMAGE_NAMESPACE>
+						<JAR_FILE>${project.build.finalName}.${project.packaging}</JAR_FILE>
+						<PRJ_NAME>${project.build.finalName}</PRJ_NAME>
+					</buildArgs>
+					<skip>${docker.image.skip}</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>dockerfile-build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>     <!-- 本地调试时可注释 -->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

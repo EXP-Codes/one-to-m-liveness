@@ -1,0 +1,30 @@
+version: '2'
+services:
+  one-to-m-liveness:
+    container_name: one-to-m-liveness
+    hostname: LIVENESS
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        JAR_FILE: one-to-m-liveness.jar
+        PRJ_NAME: one-to-m-liveness
+    volumes:
+      - ./logs:/apps/one-to-m-liveness/logs
+    ports:
+      - 8080:8080
+    networks:
+      liveness:
+        ipv4_address: 172.168.2.2
+    restart: on-failure
+
+
+networks:
+  liveness:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet:  172.168.2.0/24
+          gateway: 172.168.2.1
+
