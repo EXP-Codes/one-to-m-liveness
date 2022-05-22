@@ -19,16 +19,16 @@
 
 把需要做探活的服务接口配置到 [`application.yml`](./src/main/resources/application.yml) ，配置方法参考其中的 demo :
 
-···yml
+```yml
 # 需要探活的服务列表（格式一）
 detected-list:
-remoteServices:
-- name: "exp"
-protocol: "http"
-address: "https://exp-blog.com"
-- name: "qq"
-protocol: "socket"
-address: "127.0.0.1:65535"
+  remoteServices:
+    - name: "exp"
+      protocol: "http"
+      address: "https://exp-blog.com"
+    - name: "qq"
+      protocol: "socket"
+      address: "127.0.0.1:65535"
 
 # 需要探活的服务列表（格式二）
 detected-list.remoteServices[2].name: "baidu"
@@ -37,7 +37,7 @@ detected-list.remoteServices[2].address: "https://www.baidu.com"
 detected-list.remoteServices[3].name: "springboot"
 detected-list.remoteServices[3].protocol: "socket"
 detected-list.remoteServices[3].address: "127.0.0.1:8080"
-···
+```
 
 
 ## 使用方法
