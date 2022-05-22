@@ -1,0 +1,37 @@
+{
+  "ok": false,
+  "total": 4,
+  "errorNum": 4,
+  "errorData": [
+    {
+      "name": "qq",
+      "protocol": "socket",
+      "address": "127.0.0.1:65535",
+      "statusCode": -1,
+      "statusDesc": "Detecte Error"
+    },
+    {
+      "name": "exp",
+      "protocol": "http",
+      "address": "https://exp-blog.com",
+      "statusCode": 500,
+      "statusDesc": ""
+    },
+    {
+      "name": "baidu",
+      "protocol": "http",
+      "address": "https://www.baidu.com",
+      "statusCode": 404,
+      "statusDesc": ""
+    },
+    {
+      "name": "springboot",
+      "protocol": "socket",
+      "address": "127.0.0.1:8080",
+      "statusCode": 1,
+      "statusDesc": ""
+    }
+  ],
+  "sussessData": [
+  ]
+}

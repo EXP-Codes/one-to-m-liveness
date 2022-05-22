@@ -45,7 +45,7 @@ public class GenUnitTestData {
             rs.setName("UT_Service_" + i);
             if (i % 2 == 0) {
                 rs.setProtocol(RemoteServiceProtocol.HTTP);
-                rs.setAddress("https://" + genString(5) + ".com");
+                rs.setAddress(genURL());
                 rs.setStatusCode(isOK ?
                         genInt(LivenessStatus.OK_HTTP_MIN, LivenessStatus.OK_HTTP_MAX) :    // [200-399]
                         genInt(LivenessStatus.OK_HTTP_MIN));                                // [0,200)
@@ -60,10 +60,20 @@ public class GenUnitTestData {
     }
 
     /**
+     * 获取随机 url
+     * @return 返回随机数 url
+     */
+    public static String genURL() {
+        StringBuilder url = new StringBuilder();
+        url.append("https://").append(genString(5)).append(".com");
+        return url.toString();
+    }
+
+    /**
      * 获取随机 IP
      * @return 返回随机数 IP
      */
-    private static String genIP() {
+    public static String genIP() {
         StringBuilder ip = new StringBuilder();
         int A = genInt(1, 255);
         int B = genInt(0, 255);
