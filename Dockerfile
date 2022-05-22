@@ -10,7 +10,10 @@ RUN mkdir -p ${PRJ_NAME}/config && \
 # 覆盖 【应用文件】：启动脚本、应用外部配置
 COPY ./res/apps /apps
 
-WORKDIR /apps/
+
+WORKDIR /apps/${PRJ_NAME}
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
+
 ADD ./res/bin/wrapper.sh /wrapper.sh
 ADD ./res/bin/docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT /docker-entrypoint.sh

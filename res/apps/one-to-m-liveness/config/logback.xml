@@ -30,6 +30,11 @@
             <charset>${CHARSET}</charset>
             <pattern>${PATTERN_DEF}</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
     </appender>
 
     <!-- 应用异常日志器  -->

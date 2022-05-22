@@ -10,6 +10,7 @@ services:
         JAR_FILE: one-to-m-liveness.jar
         PRJ_NAME: one-to-m-liveness
     volumes:
+#      - ./res/apps/one-to-m-liveness/config:/apps/one-to-m-liveness/config
       - ./logs:/apps/one-to-m-liveness/logs
     ports:
       - 8080:8080
