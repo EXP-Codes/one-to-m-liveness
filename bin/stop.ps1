@@ -1,7 +1,6 @@
-#!/bin/sh
 # ------------------------
 # 停止容器
-# bin/stop.sh
+# bin/stop.ps1
 # ------------------------
 
 docker-compose down

@@ -22,6 +22,10 @@ function build_image() {
     # docker build --no-cache -t ${image_name} -f ${dockerfile} .
 }
 
+echo "clean logs ..."
+rm -rf ./log
+
+echo "build image ..."
 mvn clean package
 image_name=`echo ${PWD##*/}`
 build_image ${image_name} "Dockerfile"

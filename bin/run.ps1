@@ -1,8 +1,7 @@
-#!/bin/sh
 # ------------------------
-# 停止容器
-# bin/stop.sh
+# 运行容器
+# bin/run.sh
 # ------------------------
 
-docker-compose down
+docker-compose up -d
 docker ps
