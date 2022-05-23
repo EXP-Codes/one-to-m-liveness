@@ -2,6 +2,7 @@ package com.exp.liveness.utils;
 
 import com.exp.liveness.bean.RemoteService;
 import com.exp.liveness.envm.LivenessStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,6 +13,7 @@ import org.apache.http.impl.client.HttpClients;
  * @author exp
  * @date 2022-05-22
  */
+@Slf4j
 public class HttpUtils {
 
     /** 测试用的 HttpClient */
@@ -33,6 +35,7 @@ public class HttpUtils {
             remoteService.setStatusCode(statusCode);
 
         } catch (Exception e) {
+            log.error("Remote HTTP Server Error", e);
             remoteService.setStatusCode(LivenessStatus.UNKNOW);
             remoteService.setStatusDesc(e.getMessage());
         }

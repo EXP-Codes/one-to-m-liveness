@@ -2,6 +2,7 @@ package com.exp.liveness.utils;
 
 import com.exp.liveness.bean.RemoteService;
 import com.exp.liveness.envm.LivenessStatus;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.Socket;
 
@@ -10,6 +11,7 @@ import java.net.Socket;
  * @author exp
  * @date 2022-05-22
  */
+@Slf4j
 public class SocketUtils {
 
     private SocketUtils() {}
@@ -33,6 +35,7 @@ public class SocketUtils {
                 throw ex;
             }
         } catch (Exception e) {
+            log.error("Remote Socket Server Error", e);
             remoteService.setStatusCode(LivenessStatus.UNKNOW);
             remoteService.setStatusDesc(e.getMessage());
         }
