@@ -12,7 +12,7 @@
 
 	<groupId>com.exp</groupId>
 	<artifactId>one-to-m-liveness</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>one-to-many-liveness</name>
 	<description>一对多探活器（one-to-many liveness）</description>
 	<url>https://github.com/lyy289065406/one-to-m-liveness</url>
