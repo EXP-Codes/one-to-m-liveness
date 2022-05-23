@@ -17,4 +17,5 @@ RUN echo "alias ll='ls -l'" >> /root/.bashrc
 
 ADD ./res/bin/wrapper.sh /wrapper.sh
 ADD ./res/bin/docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod a+x /*.sh
 ENTRYPOINT /docker-entrypoint.sh
