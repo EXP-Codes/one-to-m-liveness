@@ -34,7 +34,7 @@ public class HttpUtils {
 
         } catch (Exception e) {
             remoteService.setStatusCode(LivenessStatus.UNKNOW);
-            remoteService.setStatusDesc("Detecte Error");
+            remoteService.setStatusDesc(e.getMessage());
         }
         return isLiveness(remoteService.getStatusCode());
     }
