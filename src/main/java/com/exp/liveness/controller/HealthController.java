@@ -26,6 +26,15 @@ public class HealthController {
     private HealthService healthService;
 
     /**
+     * 自身探活
+     * @return
+     */
+    @GetMapping("self")
+    public String self() {
+        return "OK";
+    }
+
+    /**
      * 对所有远端服务执行探活
      * @return json（探活状态总集）：
      *          若全部远端服务探活成功，则此接口的 http 状态码为 200

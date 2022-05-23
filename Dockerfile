@@ -1,8 +1,8 @@
 FROM openjdk:8-jdk-oracle
 
 # ARG 从 pom.xml 插件 dockerfile-maven-plugin 的 buildArgs 传入
-ARG JAR_FILE
-ARG PRJ_NAME
+ARG JAR_FILE="one-to-m-liveness.jar"
+ARG PRJ_NAME="one-to-m-liveness"
 ADD ./target/${JAR_FILE} /apps/${PRJ_NAME}/${JAR_FILE}
 RUN mkdir -p ${PRJ_NAME}/config && \
     mkdir -p ${PRJ_NAME}/logs && \
