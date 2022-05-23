@@ -5,8 +5,7 @@ ARG JAR_FILE="one-to-m-liveness.jar"
 ARG PRJ_NAME="one-to-m-liveness"
 ADD ./target/${JAR_FILE} /apps/${PRJ_NAME}/${JAR_FILE}
 RUN mkdir -p ${PRJ_NAME}/config && \
-    mkdir -p ${PRJ_NAME}/logs && \
-    chmod 777 ${PRJ_NAME}/logs
+    mkdir -p ${PRJ_NAME}/logs
 
 # 覆盖应用启动脚本、应用外部配置
 COPY ./res/apps /apps
