@@ -52,7 +52,7 @@
 
 		<!-- 自动装配支持 -->
 		<dependency>
-			<groupId> org.springframework.boot </groupId>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
 
