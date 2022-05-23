@@ -89,7 +89,7 @@ detected-list.remoteServices[3].address: "127.0.0.1:8080"
 - `HTTP 200`： 所有的被测服务均正常
 - `HTTP 206`： 部分或所有的被测服务异常
 
-> 其他状态码均表示 [http://localhost:8080/health/liveness](http://localhost:8080/health/liveness) 接口本身的服务异常。
+> 其他状态码均表示 `/health/liveness` 接口本身的服务异常，但是自身探活建议用 `/health/self` 接口。
 
 
 ## 容器化
