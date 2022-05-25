@@ -20,7 +20,10 @@ function build_image([string]$image_name, [string]$dockerfile) {
 }
 
 Write-Host "clean logs ..."
-Remove-Item ./logs -Recurse -Force
+$LOG_DIR = "./logs"
+if (Test-Path ${LOG_DIR}) {
+    Remove-Item ${LOG_DIR} -Recurse -Force
+}
 
 Write-Host "build image ..."
 mvn clean package
