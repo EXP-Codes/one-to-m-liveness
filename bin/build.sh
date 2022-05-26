@@ -1,8 +1,21 @@
 #!/bin/sh
 # ------------------------
 # 构建镜像
-# bin/build.sh
+# bin/build.sh -c
 # ------------------------
+
+CACHE="ON"
+
+set -- `getopt c: "$@"`
+while [ -n "$1" ]
+do
+  case "$1" in
+    -c) CACHE="$2"
+        shift ;;
+  esac
+  shift
+done
+
 
 function del_image() {
   image_name=$1
@@ -18,8 +31,11 @@ function build_image() {
     image_name=$1
     dockerfile=$2
     del_image ${image_name}
-    docker build -t ${image_name} -f ${dockerfile} .
-    # docker build --no-cache -t ${image_name} -f ${dockerfile} .
+    if [ "x${CACHE}" = "xOFF" ]; then
+        docker build --no-cache -t ${image_name} -f ${dockerfile} .
+    else
+        docker build -t ${image_name} -f ${dockerfile} .
+    fi
 }
 
 echo "clean logs ..."

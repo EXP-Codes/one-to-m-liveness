@@ -1,11 +1,22 @@
 #!/bin/sh
 # ------------------------
 # 发布镜像
-# bin/deploy.ps1
+# bin/deploy.sh [-n NAMESPACE] [-v VERSION]
+#   -n docker hub 的命名空间
+#   -v 镜像版本号
 # ------------------------
 
+param([string]$n="", [string]$v="")
+
 $NAMESPACE = "expm02"
+If(![string]::IsNullOrEmpty($n)) {
+    $NAMESPACE = $n
+}
+
 $VERSION = Get-Date -format "yyMMddHH"
+If(![string]::IsNullOrEmpty($v)) {
+    $VERSION = $v
+}
 
 
 function deploy_image([string]$image_name) {

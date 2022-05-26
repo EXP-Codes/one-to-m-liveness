@@ -103,3 +103,5 @@ detected-list.remoteServices[3].address: "127.0.0.1:8080"
 5. [`bin/stop.sh`](./bin/stop.sh) 或 [`bin/stop.ps1`](./bin/stop.ps1)： 停止容器
 
 若需要在容器中修改 [`application.yml`](./res/apps/one-to-m-liveness/config/application.yml)， 只需把 `./res/apps/one-to-m-liveness/config/application.yml` 挂载出来修改即可。
+
+> 最新镜像已发布到 docker hub : [`docker pull expm02/one-to-m-liveness:latest`](https://hub.docker.com/r/expm02/one-to-m-liveness)
