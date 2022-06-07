@@ -62,10 +62,10 @@ public class HealthServiceImpl implements HealthService {
 
             if (isOK) {
                 successRemoteServices.add(remoteService);
-                log.info("Detected OK: {}", remoteService.toSimpleInfo());
+                log.info("Detected OK: {}", remoteService.toDetailInfo());
             } else {
                 errorRemoteServices.add(remoteService);
-                log.warn("Detected ERROR: {}", remoteService.toSimpleInfo());
+                log.warn("Detected ERROR: {}", remoteService.toDetailInfo());
             }
         }
         return ResultUtils.handle(errorRemoteServices, successRemoteServices);
