@@ -55,6 +55,16 @@ public class RemoteService {
         return sb.toString();
     }
 
+    public String toDetailInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(name).append("]");
+        sb.append("[").append(protocol).append("]");
+        sb.append("[").append(address).append("]");
+        sb.append("[").append(statusCode).append("]");
+        sb.append("[").append(statusDesc).append("]");
+        return sb.toString();
+    }
+
     public String getName() {
         return name;
     }
