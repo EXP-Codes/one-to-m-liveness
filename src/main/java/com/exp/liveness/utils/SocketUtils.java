@@ -30,6 +30,7 @@ public class SocketUtils {
             try (Socket socket = new Socket(ip, port)) {
                 socket.close();
                 remoteService.setStatusCode(LivenessStatus.OK_SOCKET);
+                remoteService.setStatusDesc("");
 
             } catch (Exception ex) {
                 throw ex;

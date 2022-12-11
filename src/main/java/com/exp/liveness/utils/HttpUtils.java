@@ -33,6 +33,7 @@ public class HttpUtils {
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             remoteService.setStatusCode(statusCode);
+            remoteService.setStatusDesc("");
 
         } catch (Exception e) {
             log.error("Remote HTTP Server Error", e);
